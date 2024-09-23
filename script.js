@@ -12,19 +12,26 @@ function Book(index, title, author, numOfPages, read) {
     }
 }
 
-function addBookToLibrary() {
-    addBtn.addEventListener(click, ()=> {
-        let book = new Book(
-            myLibrary.length,
-            document.getElementById('title'),
-            document.getElementById('author'),
-            document.getElementById('number-of-pages'),
-            document.getElementById('read')
-        );
-        event.preventDefault();
-    });
-    myLibrary = myLibrary.push(book)
+function addBookToLibrary(book) {
+    myLibrary.push(book);
+    displayBooks();
 }
 
 
-console.log(myLibrary);
+addBtn.addEventListener('click', ()=> {
+    let book = new Book(
+        myLibrary.length,
+        document.getElementById('title').value,
+        document.getElementById('author').value,
+        document.getElementById('pages').value,
+        document.getElementById('read').value
+    );
+    event.preventDefault();
+    addBookToLibrary(book);
+});
+
+function displayBooks(){
+    for(i in myLibrary) {
+        console.log(myLibrary[i]); 
+    }
+}
