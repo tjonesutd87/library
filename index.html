@@ -6,7 +6,30 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <div id="header">
+        <img src="images/placeholder" alt="book icon" />
+        <h1>My Library</h1>
+    </div>
+    <div id="book-form-container">
+        <form id="book-form">
+            <label for="title-field">Title</label>
+            <input id="title-field" type="text" required>
+            <label for="author-field">Author</label>
+            <input type="text" id="author-field" required>
+            <label for="pages">Number of Pages</label>
+            <input type="text" id="pages">
+            <label for="read">Read?</label>
+            <input type="checkbox" id="read" required>
+            <button type="submit" id="add-button">Add</button>
+        </form>
+    </div>
+    <div id="card-containter">
+        <div class="book-card">
+            <p class="title">Dune</p>
+            <p class="author">Frank Herbert</p>
+            <p class="number-of-pages"></p>
+        </div>
+    </div>
 </body>
-<script type="text/javascript" src="book-constructor.js"></script>
+<script type="text/javascript" src="script.js"></script>
 </html>
