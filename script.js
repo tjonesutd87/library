@@ -21,10 +21,10 @@ function addBookToLibrary(book) {
 addBtn.addEventListener('click', ()=> {
     let book = new Book(
         myLibrary.length,
-        document.getElementById('title').value,
-        document.getElementById('author').value,
+        document.getElementById('title-field').value,
+        document.getElementById('author-field').value,
         document.getElementById('pages').value,
-        document.getElementById('read').value
+        document.getElementById("read").checked
     );
     event.preventDefault();
     addBookToLibrary(book);
