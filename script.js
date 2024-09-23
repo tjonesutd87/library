@@ -1,4 +1,8 @@
-function Book(title, author, numOfPages, read) {
+const myLibrary = [];
+const addBtn = document.getElementById("add-button");
+
+function Book(index, title, author, numOfPages, read) {
+    this.index = index;
     this.title = title;
     this.author = author;
     this.numOfPages = numOfPages;
@@ -8,8 +12,19 @@ function Book(title, author, numOfPages, read) {
     }
 }
 
-const book1 = new Book("Dune", "Frank Herbert", 436, true);
-const book2 = new Book("The Boy and His Horse", "C.S. Lewis", 378, false);
+function addBookToLibrary() {
+    addBtn.addEventListener(click, ()=> {
+        let book = new Book(
+            myLibrary.length,
+            document.getElementById('title'),
+            document.getElementById('author'),
+            document.getElementById('number-of-pages'),
+            document.getElementById('read')
+        );
+        event.preventDefault();
+    });
+    myLibrary = myLibrary.push(book)
+}
 
-console.log(book1.info());
-console.log(book2.info());
+
+console.log(myLibrary);
