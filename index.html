@@ -3,31 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
-    <div id="header">
-        <img src="images/placeholder" alt="book icon" />
-        <h1>My Library</h1>
-    </div>
-    <div id="book-form-container">
-        <form id="book-form">
-            <label for="title-field">Title</label>
-            <input id="title-field" type="text" required>
-            <label for="author-field">Author</label>
-            <input type="text" id="author-field" required>
-            <label for="pages">Number of Pages</label>
-            <input type="text" id="pages">
-            <label for="read">Read?</label>
-            <input type="checkbox" id="read" required>
-            <button type="submit" id="add-button">Add</button>
-        </form>
-    </div>
-    <div id="card-containter">
-        <div class="book-card">
-            <p class="title">Dune</p>
-            <p class="author">Frank Herbert</p>
-            <p class="number-of-pages"></p>
+    <div id="wrapper">
+        <div id="header">
+            <img src="images/placeholder" alt="book icon" />
+            <h1>My Library</h1>
+        </div>
+        <div id="book-form-container">
+            <form id="book-form">
+                <label for="title-field">Title</label>
+                <input id="title-field" type="text" required>
+                <label for="author-field">Author</label>
+                <input type="text" id="author-field" required>
+                <label for="pages">Number of Pages</label>
+                <input type="text" id="pages">
+                <div>
+                    <label for="read">Read?</label>
+                    <input type="checkbox" id="read" required>
+                </div>
+                <button type="submit" id="add-button">Add</button>
+            </form>
+        </div>
+        <div id="card-container">
+            <div class="book-card">
+                <p class="title">Dune</p>
+                <p class="author">Frank Herbert</p>
+                <p class="number-of-pages"></p>
+            </div>
+            <div class="book-card">
+                <p class="title">Dune</p>
+                <p class="author">Frank Herbert</p>
+                <p class="number-of-pages"></p>
+            </div>
+            <div class="book-card">
+                <p>Title:</p>
+                <p class="title">Dune</p>
+                <p>Author:</p>
+                <p class="author">Frank Herbert</p>
+                <p>Number of Pages:</p>
+                <p class="number-of-pages">412</p>
+                <p>read?</p>
+                <p>yes</p>
+                <div></div>
+                <button>Remove</button>
+            </div>
+            <div class="book-card">
+                <p class="title">Dune</p>
+                <p class="author">Frank Herbert</p>
+                <p class="number-of-pages">412</p>
+            </div>
+            <div class="book-card">
+                <p class="title">Dune</p>
+                <p class="author">Frank Herbert</p>
+                <p class="number-of-pages"></p>
+            </div>
         </div>
     </div>
 </body>
