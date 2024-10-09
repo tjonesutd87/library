@@ -32,10 +32,9 @@ const myLibrary = [
         enabled: true,
     },
 ];
-const addBtn = document.getElementById('add-button');
+const bookAddBtn = document.getElementById('book-add');
 const cardContainer = document.getElementById('card-container');
-let removeBtn = Array.from(document.getElementsByClassName('remove-button'));
-let readBtn = Array.from(document.getElementsByClassName('read-button'));
+const wrapper = document.getElementById('wrapper');
 
 function Book(index, title, author, numOfPages, read, enabled) {
     this.index = index;
@@ -77,7 +76,7 @@ function createBookCard(libraryBook){
     //  Add book info from the current library array entry to p elements
     title.textContent = 'Title: ' + libraryBook.title;
     author.textContent = 'Author: ' + libraryBook.author;
-    pages.textContent = 'Pages: ' + libraryBook.pages;
+    pages.textContent = 'Pages: ' + libraryBook.numOfPages;
     read.textContent = 'Read: ';
     if (libraryBook.read){
         read.textContent += 'Yes';
@@ -97,7 +96,6 @@ function createBookCard(libraryBook){
     btnContainer.appendChild(readBtn);
     btnContainer.appendChild(removeBtn);
 }
-
 function addBookToLibrary(book) {
     myLibrary.push(book);
 }
@@ -113,48 +111,124 @@ function displayBooks(){
 
 displayBooks();
 
-addBtn.addEventListener('click', ()=> {
-    let book = new Book(
-        (myLibrary.length),
-        document.getElementById('title-field').value,
-        document.getElementById('author-field').value,
-        document.getElementById('pages').value,
-        document.getElementById('read').checked,
-        true
-    );
-    event.preventDefault();
-    addBookToLibrary(book);
-    createBookCard(book);
-});
+function createCardButtons() {
+    //  Create remove buttons
+    let removeBtn = Array.from(document.getElementsByClassName('remove-button'));
+    removeBtn.forEach ((button) => {
+        button.addEventListener('click', () => {
+            let index = button.getAttribute('id').slice(6);
+            myLibrary[index].enabled = false;
+            let cardId = 'card' + index;
+            const card  = document.getElementById(cardId);
+            card.remove();
+        });
+    });
 
-//  Create remove buttons
-removeBtn = Array.from(document.getElementsByClassName('remove-button'));
-removeBtn.forEach ((button) => {
-    button.addEventListener('click', () => {
-        let index = button.getAttribute('id').slice(6);
-        myLibrary[index].enabled = false;
-        let cardId = 'card' + index;
-        const card  = document.getElementById(cardId);
-        card.remove();
+    //  Create read toggle buttons
+    let readBtn = Array.from(document.getElementsByClassName('read-button'));
+    readBtn.forEach ((button) => {
+        button.addEventListener('click', () => {
+            let index = button.getAttribute('id').slice(11);
+            console.log(index);
+            let paragraphId = 'read' + index;
+            const read = document.getElementById(paragraphId);
+            if (myLibrary[index].read) {
+                myLibrary[index].read = false;
+                read.textContent = "Read: No";
+            } else {
+                myLibrary[index].read = true;
+                read.textContent = "Read: Yes";
+            }
+            console.log(`${myLibrary[index].title} has been read: ${myLibrary[index].read}`)
+        });
+    });
+}
+
+createCardButtons();
+
+//  create an add book form from clicking the add new book button
+bookAddBtn.addEventListener('click', ()=> {
+
+    //  initialize variables for each element
+    let formContainer = document.createElement('div');
+    let form = document.createElement('form');
+    let titleLabel = document.createElement('label');
+    let titleInput = document.createElement('input');
+    let authorLabel = document.createElement('label');
+    let authorInput = document.createElement('input');
+    let numOfPagesLabel = document.createElement('label');
+    let numOfPagesInput = document.createElement('input');
+    let readLabel = document.createElement('label');
+    let readInput = document.createElement('input');
+    let readContainer = document.createElement('div');
+    let addBtn = document.createElement('button');
+    let closeBtn = document.createElement('button')
+
+    //  set attributes on all the elements
+    formContainer.setAttribute('id', 'book-form-container');
+    form.setAttribute('id', 'book-form');
+    titleLabel.setAttribute('for', 'title-field');
+    titleLabel.textContent = 'Title';
+    titleInput.setAttribute('id', 'title-field');
+    titleInput.setAttribute('type', 'text');
+    titleInput.setAttribute('required', 'true');
+    authorLabel.setAttribute('for', 'author-field');
+    authorLabel.textContent = 'Author';
+    authorInput.setAttribute('id', 'author-field');
+    authorInput.setAttribute('type', 'text');
+    authorInput.setAttribute('required', 'true');
+    numOfPagesLabel.setAttribute('for', 'pages');
+    numOfPagesLabel.textContent = 'Number of Pages';
+    numOfPagesInput.setAttribute('id', 'pages');
+    numOfPagesInput.setAttribute('type', 'tel');
+    numOfPagesInput.setAttribute('required', 'true');
+    readLabel.setAttribute('for', 'read');
+    readLabel.textContent = 'Read?';
+    readInput.setAttribute('id', 'read');
+    readInput.setAttribute('type', 'checkbox');
+    readInput.setAttribute('required', 'true');
+    addBtn.setAttribute('id', 'add-button');
+    addBtn.setAttribute('type', 'submit');
+    addBtn.textContent = 'Add';
+    closeBtn.setAttribute('id', 'close-button');
+    closeBtn.textContent = 'X';
+
+    // add elements to dom tree
+    console.log(wrapper);
+    wrapper.appendChild(formContainer);
+    formContainer.appendChild(closeBtn);
+    formContainer.appendChild(form);
+    form.appendChild(titleLabel);
+    form.appendChild(titleInput);
+    form.appendChild(authorLabel);
+    form.appendChild(authorInput);
+    form.appendChild(numOfPagesLabel);
+    form.appendChild(numOfPagesInput);
+    form.appendChild(readContainer);
+    readContainer.appendChild(readLabel);
+    readContainer.appendChild(readInput);
+    form.appendChild(addBtn);
+
+    //  add new book button
+    addBtn.addEventListener('click', ()=> {
+        let book = new Book(
+            (myLibrary.length),
+            document.getElementById('title-field').value,
+            document.getElementById('author-field').value,
+            document.getElementById('pages').value,
+            document.getElementById('read').checked,
+            true
+        );
+        event.preventDefault();
+        addBookToLibrary(book);
+        createBookCard(book);
+        createCardButtons();
+        formContainer.remove();
+    });
+
+    //  close button
+    closeBtn.addEventListener('click', ()=>{
+        formContainer.remove();
     });
 });
 
-
-//  Create read toggle buttons
-readBtn = Array.from(document.getElementsByClassName('read-button'));
-readBtn.forEach ((button) => {
-    button.addEventListener('click', () => {
-        let index = button.getAttribute('id').slice(11);
-        console.log(index);
-        let paragraphId = 'read' + index;
-        const read = document.getElementById(paragraphId);
-        if (myLibrary[index].read) {
-            myLibrary[index].read = false;
-            read.textContent = "Read: No";
-        } else {
-            myLibrary[index].read = true;
-            read.textContent = "Read: Yes";
-        }
-        console.log(`${myLibrary[index].title} has been read: ${myLibrary[index].read}`)
-    });
-});
