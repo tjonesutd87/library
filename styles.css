@@ -273,3 +273,10 @@ label {
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+
+#form-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

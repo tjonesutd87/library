@@ -157,6 +157,7 @@ bookAddBtn.addEventListener('click', ()=> {
         //  initialize variables for each element
         let formContainer = document.createElement('div');
         let form = document.createElement('form');
+        let formDiv = document.createElement('div');
         let titleLabel = document.createElement('label');
         let titleInput = document.createElement('input');
         let authorLabel = document.createElement('label');
@@ -172,6 +173,7 @@ bookAddBtn.addEventListener('click', ()=> {
 
         //  set attributes on all the elements
         formContainer.setAttribute('id', 'book-form-container');
+        formDiv.setAttribute('id', 'form-div');
         form.setAttribute('id', 'book-form');
         form.setAttribute('action', '/');
         form.setAttribute('method', 'post');
@@ -211,7 +213,8 @@ bookAddBtn.addEventListener('click', ()=> {
         console.log(wrapper);
         wrapper.appendChild(formContainer);
         formContainer.appendChild(closeBtn);
-        formContainer.appendChild(form);
+        formContainer.appendChild(formDiv);
+        formDiv.appendChild(form);
         form.appendChild(titleLabel);
         form.appendChild(titleInput);
         form.appendChild(authorLabel);
