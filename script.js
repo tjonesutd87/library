@@ -35,6 +35,7 @@ const myLibrary = [
 const bookAddBtn = document.getElementById('book-add');
 const cardContainer = document.getElementById('card-container');
 const wrapper = document.getElementById('wrapper');
+let bookFormActive = false;
 
 function Book(index, title, author, numOfPages, read, enabled) {
     this.index = index;
@@ -148,87 +149,100 @@ createCardButtons();
 
 //  create an add book form from clicking the add new book button
 bookAddBtn.addEventListener('click', ()=> {
+    //  check if the book form modal is already on the screen, run function if not, else do nothing
+    if (!bookFormActive){
 
-    //  initialize variables for each element
-    let formContainer = document.createElement('div');
-    let form = document.createElement('form');
-    let titleLabel = document.createElement('label');
-    let titleInput = document.createElement('input');
-    let authorLabel = document.createElement('label');
-    let authorInput = document.createElement('input');
-    let numOfPagesLabel = document.createElement('label');
-    let numOfPagesInput = document.createElement('input');
-    let readLabel = document.createElement('label');
-    let readInput = document.createElement('input');
-    let readContainer = document.createElement('div');
-    let addBtn = document.createElement('button');
-    let closeBtn = document.createElement('button')
+        //  set book form active toggle to true, preventing further book forms from coming onto the screen while this one is still on the screen
+        bookFormActive = true;
+        //  initialize variables for each element
+        let formContainer = document.createElement('div');
+        let form = document.createElement('form');
+        let titleLabel = document.createElement('label');
+        let titleInput = document.createElement('input');
+        let authorLabel = document.createElement('label');
+        let authorInput = document.createElement('input');
+        let numOfPagesLabel = document.createElement('label');
+        let numOfPagesInput = document.createElement('input');
+        let readLabel = document.createElement('label');
+        let readInput = document.createElement('input');
+        let readContainer = document.createElement('div');
+        let addBtn = document.createElement('button');
+        let closeBtn = document.createElement('button')
 
-    //  set attributes on all the elements
-    formContainer.setAttribute('id', 'book-form-container');
-    form.setAttribute('id', 'book-form');
-    titleLabel.setAttribute('for', 'title-field');
-    titleLabel.textContent = 'Title';
-    titleInput.setAttribute('id', 'title-field');
-    titleInput.setAttribute('type', 'text');
-    titleInput.setAttribute('required', 'true');
-    authorLabel.setAttribute('for', 'author-field');
-    authorLabel.textContent = 'Author';
-    authorInput.setAttribute('id', 'author-field');
-    authorInput.setAttribute('type', 'text');
-    authorInput.setAttribute('required', 'true');
-    numOfPagesLabel.setAttribute('for', 'pages');
-    numOfPagesLabel.textContent = 'Number of Pages';
-    numOfPagesInput.setAttribute('id', 'pages');
-    numOfPagesInput.setAttribute('type', 'tel');
-    numOfPagesInput.setAttribute('required', 'true');
-    readLabel.setAttribute('for', 'read');
-    readLabel.textContent = 'Read?';
-    readInput.setAttribute('id', 'read');
-    readInput.setAttribute('type', 'checkbox');
-    readInput.setAttribute('required', 'true');
-    addBtn.setAttribute('id', 'add-button');
-    addBtn.setAttribute('type', 'submit');
-    addBtn.textContent = 'Add';
-    closeBtn.setAttribute('id', 'close-button');
-    closeBtn.textContent = 'X';
+        //  set attributes on all the elements
+        formContainer.setAttribute('id', 'book-form-container');
+        form.setAttribute('id', 'book-form');
+        form.setAttribute('action', '/');
+        form.setAttribute('method', 'post');
+        titleLabel.setAttribute('for', 'title-field');
+        titleLabel.textContent = 'Title';
+        titleInput.setAttribute('id', 'title-field');
+        titleInput.setAttribute('name', 'title-field');
+        titleInput.setAttribute('type', 'text');
+        titleInput.setAttribute('required', 'required');
+        authorLabel.setAttribute('for', 'author-field');
+        authorLabel.textContent = 'Author';
+        authorInput.setAttribute('id', 'author-field');
+        authorInput.setAttribute('name', 'author-field');
+        authorInput.setAttribute('type', 'text');
+        authorInput.setAttribute('required', '');
+        numOfPagesLabel.setAttribute('for', 'pages');
+        numOfPagesLabel.textContent = 'Number of Pages';
+        numOfPagesInput.setAttribute('id', 'pages');
+        numOfPagesInput.setAttribute('name', 'pages');
+        numOfPagesInput.setAttribute('type', 'tel');
+        numOfPagesInput.setAttribute('required', '');
+        readLabel.setAttribute('for', 'read');
+        readLabel.textContent = 'Read?';
+        readInput.setAttribute('id', 'read');
+        readInput.setAttribute('name', 'read');
+        readInput.setAttribute('type', 'checkbox');
+        readInput.setAttribute('required', '');
+        addBtn.setAttribute('id', 'add-button');
+        addBtn.setAttribute('type', 'submit');
+        addBtn.textContent = 'Add';
+        closeBtn.setAttribute('id', 'close-button');
+        closeBtn.textContent = 'X';
 
-    // add elements to dom tree
-    console.log(wrapper);
-    wrapper.appendChild(formContainer);
-    formContainer.appendChild(closeBtn);
-    formContainer.appendChild(form);
-    form.appendChild(titleLabel);
-    form.appendChild(titleInput);
-    form.appendChild(authorLabel);
-    form.appendChild(authorInput);
-    form.appendChild(numOfPagesLabel);
-    form.appendChild(numOfPagesInput);
-    form.appendChild(readContainer);
-    readContainer.appendChild(readLabel);
-    readContainer.appendChild(readInput);
-    form.appendChild(addBtn);
+        // add elements to dom tree
+        console.log(wrapper);
+        wrapper.appendChild(formContainer);
+        formContainer.appendChild(closeBtn);
+        formContainer.appendChild(form);
+        form.appendChild(titleLabel);
+        form.appendChild(titleInput);
+        form.appendChild(authorLabel);
+        form.appendChild(authorInput);
+        form.appendChild(numOfPagesLabel);
+        form.appendChild(numOfPagesInput);
+        form.appendChild(readContainer);
+        readContainer.appendChild(readLabel);
+        readContainer.appendChild(readInput);
+        form.appendChild(addBtn);
 
-    //  add new book button
-    addBtn.addEventListener('click', ()=> {
-        let book = new Book(
-            (myLibrary.length),
-            document.getElementById('title-field').value,
-            document.getElementById('author-field').value,
-            document.getElementById('pages').value,
-            document.getElementById('read').checked,
-            true
-        );
-        event.preventDefault();
-        addBookToLibrary(book);
-        createBookCard(book);
-        createCardButtons();
-        formContainer.remove();
-    });
+        //  functionality for add new book button
+        addBtn.addEventListener('click', ()=> {
+            let book = new Book(
+                (myLibrary.length),
+                document.getElementById('title-field').value,
+                document.getElementById('author-field').value,
+                document.getElementById('pages').value,
+                document.getElementById('read').checked,
+                true
+            );
+            event.preventDefault();
+            addBookToLibrary(book);
+            createBookCard(book);
+            createCardButtons();
+            formContainer.remove();
+            bookFormActive = false;
+        });
 
-    //  close button
-    closeBtn.addEventListener('click', ()=>{
-        formContainer.remove();
-    });
+        //  functionality for close button
+        closeBtn.addEventListener('click', ()=>{
+            formContainer.remove();
+            bookFormActive = false;
+        });
+    }
 });
 
