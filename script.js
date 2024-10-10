@@ -166,6 +166,7 @@ bookAddBtn.addEventListener('click', ()=> {
         let readLabel = document.createElement('label');
         let readInput = document.createElement('input');
         let readContainer = document.createElement('div');
+        let readSpan = document.createElement('span');
         let addBtn = document.createElement('button');
         let closeBtn = document.createElement('button')
 
@@ -193,11 +194,13 @@ bookAddBtn.addEventListener('click', ()=> {
         numOfPagesInput.setAttribute('type', 'tel');
         numOfPagesInput.setAttribute('required', '');
         readLabel.setAttribute('for', 'read');
+        readLabel.setAttribute('class', 'container');
         readLabel.textContent = 'Read?';
         readInput.setAttribute('id', 'read');
         readInput.setAttribute('name', 'read');
         readInput.setAttribute('type', 'checkbox');
         readInput.setAttribute('required', '');
+        readSpan.setAttribute('class', 'checkmark');
         addBtn.setAttribute('id', 'add-button');
         addBtn.setAttribute('type', 'submit');
         addBtn.textContent = 'Add';
@@ -217,7 +220,8 @@ bookAddBtn.addEventListener('click', ()=> {
         form.appendChild(numOfPagesInput);
         form.appendChild(readContainer);
         readContainer.appendChild(readLabel);
-        readContainer.appendChild(readInput);
+        readLabel.appendChild(readInput);
+        readLabel.appendChild(readSpan);
         form.appendChild(addBtn);
 
         //  functionality for add new book button
