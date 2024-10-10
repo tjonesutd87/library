@@ -170,10 +170,13 @@ bookAddBtn.addEventListener('click', ()=> {
         let readSpan = document.createElement('span');
         let addBtn = document.createElement('button');
         let closeBtn = document.createElement('button')
+        let formTitle = document.createElement('p');
 
         //  set attributes on all the elements
         formContainer.setAttribute('id', 'book-form-container');
         formDiv.setAttribute('id', 'form-div');
+        formTitle.textContent = 'Enter Book Details:';
+        formTitle.setAttribute('id', 'form-title');
         form.setAttribute('id', 'book-form');
         form.setAttribute('action', '/');
         form.setAttribute('method', 'post');
@@ -212,6 +215,7 @@ bookAddBtn.addEventListener('click', ()=> {
         // add elements to dom tree
         console.log(wrapper);
         wrapper.appendChild(formContainer);
+        formContainer.appendChild(formTitle);
         formContainer.appendChild(closeBtn);
         formContainer.appendChild(formDiv);
         formDiv.appendChild(form);
