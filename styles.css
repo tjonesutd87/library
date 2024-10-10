@@ -125,16 +125,17 @@ body{
     font-weight: bold;
     font-size: 1em;
     margin: auto;
-    background-color: #9D4EDD;
+    background-color: #b85aee;
     color: #10002b;
     box-shadow: 3px 3px 3px #000;
 }
 
-.remove-button:hover, .read-button:hover, #add-button:hover, #book-add:hover, #close-button:hover {
+.remove-button:hover, .read-button:hover, #add-button:hover, #book-add:hover {
+    background-color: #9D4EDD;
     cursor: pointer;
 }
 
-.remove-button:active, .read-button:active, #add-button:active, #book-add:active{
+.remove-button:active, .read-button:active, #add-button:active, #book-add:active {
     box-shadow: 1px 1px 1px #000;
     background-color: #7B2CBF;
 }
@@ -176,6 +177,7 @@ body{
 }
 
 #close-button:hover {
+    cursor: pointer;
     color: #7B2CBF;
 }
 
